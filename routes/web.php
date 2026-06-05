@@ -1,22 +1,13 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
+// routes/web.php
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\MyAppController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('students.index');
 });
+Route::resource('students', StudentController::class);
 
-Route::get('/dashboard', function () {
-    return 'Halaman Dashboard';
-})->name('dashboard');
-
-Route::get('/produk/{id}', function ($id) {
-    return 'Produk ID: ' . $id;
-});
-
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/student', [StudentController::class, 'index']);
-Route::get('/myapp', [MyAppController::class, 'index']);
+// Report routes
+Route::get('/report/top-major', [StudentController::class, 'reportTopMajor'])->name('report.top-major');
+Route::get('/report/total-sks', [StudentController::class, 'reportTotalSks'])->name('report.total-sks');
